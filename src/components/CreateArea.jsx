@@ -6,8 +6,8 @@ import Zoom from '@material-ui/core/Zoom';
 function CreateArea(props) {
   const [isExpanded,setExpanded] = useState(false);
   const [note,setNote] = useState({
-      title:"",
-      content:""
+      title:props.title,
+      content:props.content
   });
   function  handleChange(event) {
       const {name,value}= event.target;
@@ -19,11 +19,12 @@ function CreateArea(props) {
       })
   }
   function submitNote(event) {
-      props.onAdd(note);
+      props.onAdd(note, props.type, props.id);
       setNote({
         title:"",
         content:""
-    });
+      });
+      props.close();
       event.preventDefault();
   }
   function expand() {
@@ -41,7 +42,7 @@ function CreateArea(props) {
           <Fab onClick={submitNote}>
           <AddIcon />
           </Fab>
-        </Zoom> 
+        </Zoom>
       </form>
     </div>
   );
